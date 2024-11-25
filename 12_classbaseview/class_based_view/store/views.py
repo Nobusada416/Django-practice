@@ -4,9 +4,13 @@ from django.views.generic.base import (
 )
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import (
+    CreateView,
+)
 from . import forms
 from datetime import datetime
 from .models import Books
+from django.urls import reverse_lazy
 
 
 class IndexView(View):
@@ -55,3 +59,19 @@ class BookListView(ListView):
             queryset = queryset.filter(name__startswith=self.kwargs['name'])
         queryset = queryset.order_by('-id')
         return queryset
+
+class BookCreateView(CreateView):
+    model = Books
+    fields = ['name', 'description', 'price']
+    template_name = 'add_book.html'
+    success_url = reverse_lazy('store:list_books')
+
+    def form_valid(self, form):
+        form.instance.created_at = datetime.now()
+        form.instance.updated_at = datetime.now()
+        return super(BookCreateView, self).form_valid(form)
+
+    def get_initial(self, **kwargs):
+        initial = super(BookCreateView, self).get_initial(**kwargs)
+        initial['name'] = 'sample'
+        return initial
