@@ -1,0 +1,11 @@
+#header {
+    background: #333;
+}
+
+input[type=submit], .module caption {
+    background: #333;
+}
+
+.dashboard #content {
+    width: 80%;
+}
