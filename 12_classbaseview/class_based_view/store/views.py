@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import (
-    View, TemplateView
+    View, TemplateView, RedirectView,
 )
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -107,3 +107,13 @@ class BookFormView(FormView):
         if form.is_valid():
             form.save()
         return super(BookFormView, self).form_valid(form)
+
+class BookRedirectView(RedirectView):
+    url = 'https://google.co.jp'
+
+    def get_redirect_url(self, *args, **kwargs):
+        book = Books.objects.first()
+        if 'pk' in kwargs:
+            return reverse_lazy('store:detail_book', kwargs={'pk': kwargs['pk']})
+
+        return reverse_lazy('store:edit_book', kwargs={'pk': book.pk  })
