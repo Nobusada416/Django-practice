@@ -1,5 +1,5 @@
 from django import forms
-from .models import Books
+from .models import Books, Pictures
 from datetime import datetime
 
 
@@ -25,5 +25,20 @@ class BookUpdateForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         obj = super(BookUpdateForm, self).save(commit=False)
         obj.updated_at = datetime.now()
+        obj.save()
+        return obj
+
+class PictureUploadForm(forms.ModelForm):
+    picture = forms.FileField(required=False)
+
+    class Meta:
+        model = Pictures
+        fields = ['picture',]
+
+    def save(self, *args, **kwargs):
+        obj = super(PictureUploadForm, self).save(commit=False)
+        obj.created_at = datetime.now()
+        obj.updated_at = datetime.now()
+        obj.book = kwargs['book']
         obj.save()
         return obj
