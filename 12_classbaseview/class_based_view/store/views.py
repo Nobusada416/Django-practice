@@ -5,7 +5,7 @@ from django.views.generic.base import (
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import (
-    CreateView,
+    CreateView, UpdateView
 )
 from . import forms
 from datetime import datetime
@@ -75,3 +75,13 @@ class BookCreateView(CreateView):
         initial = super(BookCreateView, self).get_initial(**kwargs)
         initial['name'] = 'sample'
         return initial
+
+class BookUpdateView(UpdateView):
+
+    model = Books
+    template_name = 'update_book.html'
+    form_class = forms.BookUpdateForm
+
+    def get_success_url(self):
+        print(self.object)
+        return reverse_lazy('store:edit_book', kwargs={'pk': self.object.id})

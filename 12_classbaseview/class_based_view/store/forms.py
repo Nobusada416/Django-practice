@@ -15,3 +15,15 @@ class BookForm(forms.ModelForm):
         obj.updated_at = datetime.now()
         obj.save()
         return obj
+
+class BookUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Books
+        fields = ['name', 'description', 'price']
+
+    def save(self, *args, **kwargs):
+        obj = super(BookUpdateForm, self).save(commit=False)
+        obj.updated_at = datetime.now()
+        obj.save()
+        return obj
