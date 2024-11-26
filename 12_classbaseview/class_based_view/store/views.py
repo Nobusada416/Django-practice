@@ -5,7 +5,8 @@ from django.views.generic.base import (
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import (
-    CreateView, UpdateView, DeleteView
+    CreateView, UpdateView, DeleteView,
+    FormView,
 )
 from . import forms
 from datetime import datetime
@@ -90,3 +91,19 @@ class BookDeleteView(DeleteView):
     model = Books
     template_name = 'delete_book.html'
     success_url = reverse_lazy('store:list_books')
+
+class BookFormView(FormView):
+
+    template_name = 'form_book.html'
+    form_class = forms.BookForm
+    success_url = reverse_lazy('store:list_books')
+
+    def get_initial(self):
+        initial = super(BookFormView, self).get_initial()
+        initial['name'] = 'form sample'
+        return initial
+
+    def form_valid(self, form):
+        if form.is_valid():
+            form.save()
+        return super(BookFormView, self).form_valid(form)

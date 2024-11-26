@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
   IndexView, HomeView, BookDetailView,
   BookListView, BookCreateView, BookUpdateView,
-  BookDeleteView,
+  BookDeleteView, BookFormView
 )
 # from django.views.generic.base import TemplateView
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path('add_book/', BookCreateView.as_view(), name='add_book'),
     path('edit_book/<int:pk>', BookUpdateView.as_view(), name='edit_book'),
     path('delete_book/<int:pk>', BookDeleteView.as_view(), name='delete_book'),
+    path('book_form/', BookFormView.as_view(), name='book_form'),
 ]
