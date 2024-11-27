@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 class HomeView(TemplateView):
@@ -15,26 +16,33 @@ class RegistUserView(CreateView):
     template_name = 'regist.html'
     form_class = RegistForm
 
-class UserLoginView(FormView):
+# class UserLoginView(FormView):
+#     template_name = 'user_login.html'
+#     form_class = UserLoginForm
+
+#     def post(self, request, *args, **kwargs):
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         user = authenticate(email=email, password=password)
+#         next_url = request.POST['next']
+#         if user is not None and user.is_active:
+#             login(request, user)
+#         if next_url:
+#             return redirect(next_url)
+#         return redirect('accounts:home')
+
+class UserLoginView(LoginView):
     template_name = 'user_login.html'
-    form_class = UserLoginForm
+    authentication_form = UserLoginForm
 
-    def post(self, request, *args, **kwargs):
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(email=email, password=password)
-        next_url = request.POST['next']
-        if user is not None and user.is_active:
-            login(request, user)
-        if next_url:
-            return redirect(next_url)
-        return redirect('accounts:home')
+# class UserLogoutView(View):
 
-class UserLogoutView(View):
+#     def get(self, request, *args, **kwargs):
+#         logout(request)
+#         return redirect('accounts:user_login')
 
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        return redirect('accounts:user_login')
+class UserLogoutView(LogoutView):
+    pass
 
 # @method_decorator(login_required, name='dispatch') # dispatchメソッドにlogin_requiredを追加する、という意味
 class UserView(LoginRequiredMixin, TemplateView):
