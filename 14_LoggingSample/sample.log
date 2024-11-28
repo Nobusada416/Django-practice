@@ -1,0 +1,10 @@
+2024-11-29 05:55:21,273-5159-WARNING-warning.log
+2024-11-29 05:55:21,273-5159-ERROR-error.log
+2024-11-29 05:55:21,273-5159-CRITICAL-critical.log
+2024-11-29 05:55:21,273-5159-ERROR-user = Taro raised error
+2024-11-29 05:55:21,273-5159-ERROR-division by zero
+Traceback (most recent call last):
+  File "/Users/nobusadaokamoto/private/django-practice/14_LoggingSample/01_logging_sample.py", line 23, in <module>
+    c = a / b
+        ~~^~~
+ZeroDivisionError: division by zero
