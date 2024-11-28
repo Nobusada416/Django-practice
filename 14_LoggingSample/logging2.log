@@ -1,0 +1,10 @@
+2024-11-29 06:08:18,774-__main__-ERROR-エラーログ
+2024-11-29 06:08:18,774-__main__-CRITICAL-クリティカルログ
+2024-11-29 06:09:57,184-__main__-ERROR-エラーログ
+2024-11-29 06:09:57,184-__main__-CRITICAL-クリティカルログ
+2024-11-29 06:09:57,184-__main__-ERROR-division by zero
+Traceback (most recent call last):
+  File "/Users/nobusadaokamoto/private/django-practice/14_LoggingSample/02_logging_sample.py", line 37, in <module>
+    c = a / b
+        ~~^~~
+ZeroDivisionError: division by zero
